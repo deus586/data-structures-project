@@ -26,17 +26,15 @@ class Queue:
 
         :param data: данные, которые будут добавлены в очередь
         """
-        self.head = Node(data, self.head)
-        self.all.append(data)
-
-    def revers_enqueue(self):
-        if self.tail is None:
-            if self.head is None:
-                return None
-            while self.head is not None:
-                pop = self.head
-                self.head = self.head.next_node
-                self.tail = Node(pop.data, self.tail)
+        node = Node(data, None)
+        if self.head is None:
+            self.head = node
+            self.tail = node
+            self.all.append(data)
+        else:
+            self.tail.next_node = node
+            self.tail = node
+            self.all.append(data)
 
     def dequeue(self):
         """
@@ -44,8 +42,11 @@ class Queue:
 
         :return: данные удаленного элемента
         """
-        self.revers_enqueue()
-        return self.tail.data
+        if self.head is None:
+            return None
+        pop = self.head
+        self.head = self.head.next_node
+        return pop.data
 
     def __str__(self):
         """Магический метод для строкового представления объекта"""
