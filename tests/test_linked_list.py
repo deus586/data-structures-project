@@ -18,3 +18,19 @@ class TestStack(unittest.TestCase):
         self.assertEqual(ll.head.data, {'data': 0})
         self.assertEqual(ll.tail.data, {'something': 1})
         self.assertEqual(ll.head.next_node.data, {'something': 1})
+
+    def test_exc(self):
+        ll = LinkedList()
+        ll.insert_beginning({'id': 0, 'data': 0})
+        ll.insert_at_end([1, 3, 2, 3])
+        ll.insert_at_end({'id': 3, 'something': 1})
+        ll.insert_at_end(1)
+
+        lst = ll.to_list()
+        self.assertEqual(lst[0], {'id': 0, 'data': 0})
+
+        data = ll.get_data_by_id(3)
+        self.assertEqual(data, {'id': 3, 'something': 1})
+
+        data = ll.get_data_by_id(5)
+        self.assertEqual(data, 'id отсутствует')
